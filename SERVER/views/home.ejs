@@ -1,0 +1,50 @@
+<html>
+<head>
+<title>Demo Socket IO</title>
+<script src="jquery.js"></script>
+<script src="socket.io/socket.io.js"></script>
+<script>
+
+// call to server
+var socket = io("http://localhost:3000");
+
+// get data from server
+socket.on("SERVER-SEND-COLOR", function(data){
+  $("body").attr("bgColor", data);
+})
+
+$(document).ready(function(){
+  $("#red").click(function(){
+    socket.emit("CLIENT-SEND-COLOR", "red")
+  })
+  $("#blue").click(function(){
+    socket.emit("CLIENT-SEND-COLOR", "blue")
+  })
+  $("#yellow").click(function(){
+    socket.emit("CLIENT-SEND-COLOR", "yellow")
+  })
+});
+</script>
+<style>
+  #red, #blue, #yellow {
+    width: 300px;
+    height: 70px;
+  }
+  #red {
+    background-color: red;
+  }
+  #blue {
+    background-color: blue;
+  }
+  #yellow {
+    background-color: yellow;
+  }
+</style>
+</head>
+
+<body bgColor="pink">
+  <div id="red">Red</div>
+  <div id="blue">Blue</div>
+  <div id="yellow">Yellow</div>
+</body>
+</html>
